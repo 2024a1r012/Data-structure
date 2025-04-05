@@ -1,0 +1,26 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+
+int main() {
+
+    int row,i,val,flag=0;
+    scanf("%d",&row);
+    int arr[row];
+    for(i=0;i<row;i++){
+        scanf("%d",&arr[i]);
+    }
+    scanf("%d",&val);
+    for(i=0;i<row;i++){
+        if(val==arr[i]){
+            flag=1;
+            break;
+        }
+    }
+    if(flag==1)
+        printf("Found\n");
+    else
+        printf("Not Found");
+    return 0;
+}
