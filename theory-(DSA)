@@ -1,0 +1,44 @@
+**Algo to insert a node from the end of doubly linked list.**
+1.Create a node i.e. newNode and store data in that.
+2.Cheack the list is empty or not.
+3.if list is empty then 
+     assign head=newNode
+4.if list is not empty then 
+  traverse the list upto the last node and then 
+  set the next pointer of last node to point the new node
+  set the prev pointer of new node to point the last node 
+
+**Algo to insert a node at any position in the doubly linked list.**
+1.create a node i.e. new Node and store data in that.
+2.if the list is empty exit.
+3.if the position to inserr is beginning i.e. 1 then:
+    set the next pointer of new Node to point the current head.
+    set the prev pointer of current head to point the new node.
+    update head ton point the new node.
+4.if position is >1 then perform.
+  perform traversing intil you don't reach at desired positon.
+  after you reach the correct position 
+    set newnNode->prev=temp->prev
+    set temp->prev->next=newNode
+    set newNode->next=temp
+    set temp->prev=newNode
+ otherwise:
+    dispay invalid position.
+
+**Algo to delete a node from the beginning of doubly linked list **
+1.check the list is empty or not.
+2.if empty then display message "list is empty"
+3.if list is not empty then:
+  i.create a temp pointer to point the head.
+  ii.move the head pointer to the next node i.e. head=head->next
+  iii.set head->prev=NULL
+  iv.free the memory occupied by temp
+
+**Algo to delete a node from the end of doubly linked list **
+1.check the list is empty or not.
+2.if empty then display message "list is empty"
+3.if the list is not empty then traverse the list upto the last node.
+  after reaching the last node:
+    i.create a temp pointer to point the last node.
+    ii.assign NULL in previous node.
+    iii.free the memory occupied by temp
