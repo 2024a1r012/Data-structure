@@ -43,3 +43,5 @@
     i.create a temp pointer to point the last node.
     ii.assign NULL in previous node.
     iii.free the memory occupied by temp
+
+
