@@ -2,68 +2,60 @@
 #include <stdlib.h>
 
 struct Node {
-    int data;
+    int val;
     struct Node *left, *right;
 };
 
-// Create new node
-struct Node* create(int val) {
-    struct Node* n = (struct Node*)malloc(sizeof(struct Node));
-    n->data = val;
-    n->left = n->right = NULL;
-    return n;
-}
-
-// Insert into BST
 struct Node* insert(struct Node* root, int val) {
-    if (root == NULL)
-        return create(val);
-    if (val < root->data)
+    if (root == NULL) {
+        struct Node* node = (struct Node*)malloc(sizeof(struct Node));
+        node->val = val;
+        node->left = node->right = NULL;
+        return node;
+    }
+    if (val < root->val)
         root->left = insert(root->left, val);
     else
         root->right = insert(root->right, val);
     return root;
 }
 
-// Pre-order
-void preorder(struct Node* root) {
+void pre(struct Node* root) {
     if (root) {
-        printf("%d ", root->data);
-        preorder(root->left);
-        preorder(root->right);
+        printf("%d ", root->val);
+        pre(root->left);
+        pre(root->right);
     }
 }
 
-// In-order
-void inorder(struct Node* root) {
+void in(struct Node* root) {
     if (root) {
-        inorder(root->left);
-        printf("%d ", root->data);
-        inorder(root->right);
+        in(root->left);
+        printf("%d ", root->val);
+        in(root->right);
     }
 }
 
-// Post-order
-void postorder(struct Node* root) {
+void post(struct Node* root) {
     if (root) {
-        postorder(root->left);
-        postorder(root->right);
-        printf("%d ", root->data);
+        post(root->left);
+        post(root->right);
+        printf("%d ", root->val);
     }
 }
 
 int main() {
-    int n, val;
+    int n, x;
     scanf("%d", &n);
     struct Node* root = NULL;
-    while (n--) {
-        scanf("%d", &val);
-        root = insert(root, val);
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &x);
+        root = insert(root, x);
     }
 
-    preorder(root);  printf("\n");
-    inorder(root);   printf("\n");
-    postorder(root); printf("\n");
+    pre(root);  printf("\n");
+    in(root);   printf("\n");
+    post(root); printf("\n");
 
     return 0;
 }
