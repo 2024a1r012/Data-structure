@@ -1,0 +1,50 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int val;
+    struct Node *left, *right;
+};
+
+struct Node* insert(struct Node* root, int v) {
+    if (!root) {
+        struct Node* n = malloc(sizeof(struct Node));
+        n->val = v;
+        n->left = n->right = NULL;
+        return n;
+    }
+    if (v < root->val)
+        root->left = insert(root->left, v);
+    else
+        root->right = insert(root->right, v);
+    return root;
+}
+
+int same(struct Node* a, struct Node* b) {
+    if (!a && !b) return 1;
+    if (!a || !b) return 0;
+    if (a->val != b->val) return 0;
+    return same(a->left, b->left) && same(a->right, b->right);
+}
+
+int main() {
+    int n, x, i;
+    scanf("%d", &n);
+    struct Node *r1 = NULL, *r2 = NULL;
+
+    for (i = 0; i < n; i++) {
+        scanf("%d", &x);
+        r1 = insert(r1, x);
+    }
+    for (i = 0; i < n; i++) {
+        scanf("%d", &x);
+        r2 = insert(r2, x);
+    }
+
+    if (same(r1, r2))
+        printf("Identical\n");
+    else
+        printf("Not Identical\n");
+
+    return 0;
+}
