@@ -1,0 +1,82 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// Node structure
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+// Insert node at end
+void insert(struct Node** head, int val) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = val;
+    newNode->next = NULL;
+
+    if (*head == NULL)
+        *head = newNode;
+    else {
+        struct Node* temp = *head;
+        while (temp->next != NULL)
+            temp = temp->next;
+        temp->next = newNode;
+    }
+}
+
+// Rearrange so odd values come before even values
+void rearrange(struct Node** head) {
+    struct Node *odd = NULL, *even = NULL;
+    struct Node *oddEnd = NULL, *evenEnd = NULL;
+    struct Node* curr = *head;
+
+    while (curr != NULL) {
+        if (curr->data % 2 != 0) {  // odd number
+            if (odd == NULL) {
+                odd = oddEnd = curr;
+            } else {
+                oddEnd->next = curr;
+                oddEnd = curr;
+            }
+        } else {  // even number
+            if (even == NULL) {
+                even = evenEnd = curr;
+            } else {
+                evenEnd->next = curr;
+                evenEnd = curr;
+            }
+        }
+        curr = curr->next;
+    }
+
+    if (oddEnd != NULL)
+        oddEnd->next = even;  // link odd list to even list
+    if (evenEnd != NULL)
+        evenEnd->next = NULL; // mark the end of the list
+
+    *head = (odd != NULL) ? odd : even;  // update head
+}
+
+// Print list
+void printList(struct Node* head) {
+    while (head != NULL) {
+        printf("%d ", head->data);
+        head = head->next;
+    }
+}
+
+int main() {
+    int n, val;
+    scanf("%d", &n);
+
+    struct Node* head = NULL;
+
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &val);
+        insert(&head, val);
+    }
+
+    rearrange(&head);
+    printList(head);
+
+    return 0;
+}
